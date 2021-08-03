@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 app.post("/bfhl", (req, res) => {
   const user_id = "nayan_shrivastava_25112000";
   try {
-    const numbers = req.body.numbers;
+    var numbers = req.body.numbers;
 
     if (!numbers) {
       throw new Error();
@@ -22,11 +22,12 @@ app.post("/bfhl", (req, res) => {
     if (!isNumber) {
       throw new Error();
     }
-
+    numbers = numbers.map((x) => parseInt(x));
     const even = numbers.filter((num) => parseInt(num) % 2 === 0);
     const odd = numbers.filter((num) => parseInt(num) % 2 !== 0);
     res.status(200).send({ is_success: true, user_id, even, odd });
   } catch (err) {
+    console.log(err);
     res.status(400).send({ is_success: false, user_id });
   }
 });
